@@ -1,0 +1,64 @@
+
+@import 'basic';  //引用基本样式
+
+//SASS定义
+$fontSize : 12px;
+$color : #333;
+$baseLineHeight : 1.5 !default;
+$linkColor : #333 #ddd !default;
+
+//遍历
+$heading : (h1:2.2em,h2:2.0em,h3:1.8em,h4:1.6em,h5:1.4em,h6:1.2em,h7:1em);
+@each $header,$size in $heading{
+  #{$header}{
+    font-size : $size;
+  }
+}
+
+//定义border样式函数
+@mixin border($border:1px solid #eee,$padding:10px){
+  border:$border;
+  padding:$padding;
+}
+
+//mixin定义函数针对CSS3
+@mixin radius($borderRadius:5px){
+  -webkit-border-radius:$borderRadius;
+  -moz-border-radius:$borderRadius;
+  border-radius:$borderRadius;
+}
+
+body{$fontSize:14px;font-size:$fontSize;line-height:$baseLineHeight;}
+a{
+  color:nth($linkColor,1);
+  &:hover{
+    color:nth($linkColor,2);
+  }
+}
+
+//嵌套样式
+.borderStyle{@include border(2px solid #ddd);color:#FF0;margin:(14px/2);}
+
+//继承样式
+.extendBorder{@extend .borderStyle;font-size:$fontSize;
+  li{
+    font-size:$fontSize;
+    a{
+      color:$color;
+    }
+  }
+}
+
+//引用函数
+.menu{
+  @include border();
+}
+
+//引用 css3 Radius
+.radius5{
+  @include radius();
+}
+.radius10{
+  @include radius(10px);
+}
+
