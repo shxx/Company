@@ -1,0 +1,13 @@
+kind: pipeline
+name: Hello World
+steps:
+  -   name: Hello World
+      image: centos
+      environment:
+        VARPATH: /var
+        LOGPATH:
+          from_secret: log-path
+      commands:
+        - echo $${VARPATH}
+        - echo $${LOGPATH}
+        - ls $${LOGPATH}
