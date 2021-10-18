@@ -1,13 +1,10 @@
 kind: pipeline
-name: Hello World
+name: node build
+
 steps:
-  -   name: Hello World
-      image: centos
-      environment:
-        VARPATH: /var
-        LOGPATH:
-          from_secret: log-path
+  -   name: node build
+      image: node:14.10.0
       commands:
-        - echo $${VARPATH}
-        - echo $${LOGPATH}
-        - ls $${LOGPATH}
+        - yarn config set registry https://registry.npm.taobao.org
+        - yarn install
+        - yarn rn build
